@@ -1,16 +1,92 @@
 <!doctype html>
 <html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#3D3D3D"><title>Культурный код Мрии</title><link rel="icon" href="assets/mriya-mark.svg"><link rel="stylesheet" href="assets/style.css"><link rel="stylesheet" href="assets/panel.css"></head>
-<body data-state="idle">
-<main id="dashboard" inert aria-hidden="true">
-  <header class="topbar"><div class="brand"><img id="brandMark" src="assets/mriya-mark.svg" alt="Лотос Мрии"><span>Исследование культуры</span></div><span class="sample">Исследование · 2026</span></header>
-  <div class="workspace"><nav class="workspace-nav" aria-label="Разделы исследования">
-<button class="nav-tab active" id="profileTab" aria-pressed="true">Профиль культуры</button>
-<button class="nav-tab" id="scenarioTab" aria-pressed="false">Сценарий изменений</button>
-<button class="nav-tab" id="cutsTab" aria-pressed="false">Разрезы исследования</button>
-<button class="nav-tab" id="knowledgeTab" aria-pressed="false">База знаний <span>12</span></button>
-<span class="workspace-status"><i></i>Мрия · весь курорт</span></nav>
+<body data-state="ready">
+<main id="dashboard">
+  <header class="topbar">
+    <div class="brand">
+      <img id="brandMark" src="assets/mriya-mark.svg" alt="Лотос Мрии">
+      <div class="brand-text"><strong>Мрия Курорт & SPA</strong><span>Культурный код</span></div>
+    </div>
+    <div class="topbar-actions">
+      <button id="headerGuideBtn" class="quiet header-guide-btn" type="button">📖 Гид по платформе</button>
+      <button id="replay" class="quiet replay-btn" type="button">✨ Анимация лотоса</button>
+      <span class="sample">МГУ · 2026</span>
+    </div>
+  </header>
+  <div class="workspace">
+    <nav class="workspace-nav" aria-label="Разделы исследования">
+      <button class="nav-tab active" id="profileTab" aria-pressed="true">🧭 Профиль культуры</button>
+      <button class="nav-tab" id="scenarioTab" aria-pressed="false">⚡ Сценарий изменений</button>
+      <button class="nav-tab" id="cutsTab" aria-pressed="false">📊 Разрезы исследования</button>
+      <button class="nav-tab" id="knowledgeTab" aria-pressed="false">📚 База знаний <span>12</span></button>
+      <span class="workspace-status"><i></i>Мрия · весь курорт</span>
+    </nav>
   <div id="profileView" class="app-view">
-    <div class="page-heading"><div><h1>Культурный код Мрии</h1><p>Как устроено взаимодействие внутри курорта</p></div><button id="replay" class="quiet" type="button">Повторить вступление</button></div>
+    <div class="page-heading">
+      <div>
+        <h1>Культурный код курорта Мрия</h1>
+        <p>Интерактивная карта организационных практик и сценарного моделирования</p>
+      </div>
+      <div class="page-heading-actions">
+        <button id="toggleGuideBtn" class="quiet guide-trigger-btn" type="button">💡 Инструкция и контекст</button>
+      </div>
+    </div>
+
+    <section class="welcome-guide" id="welcomeGuide" aria-label="Введение и контекст исследования">
+      <div class="welcome-header">
+        <div class="welcome-title-wrap">
+          <span class="welcome-badge">Курорт Mriya Resort & SPA · Стратегическая сессия</span>
+          <h2>Интерактивный навигатор по исследованию культурного кода</h2>
+          <p class="welcome-subtitle">Цифровой инструмент по результатам исследования Института национальных проектов МГУ (август 2026, 1 047 анкет сотрудников) и 12-часовой стратегической сессии руководителей курорта</p>
+        </div>
+        <div class="welcome-actions">
+          <button type="button" class="welcome-toggle-btn" id="welcomeToggleBtn" aria-expanded="true">
+            ✕ Свернуть гид
+          </button>
+        </div>
+      </div>
+
+      <div class="welcome-content" id="welcomeContent">
+        <div class="welcome-context-card">
+          <div class="context-pill">Зачем создана эта панель для руководителей</div>
+          <p>На стратегической сессии руководители разбирали, как существующие рабочие практики курорта (шкалы 1–6) влияют на командное взаимодействие, гостевой сервис и выгорание. В книжках и 50 слайдах презентации сложно удержать системные взаимосвязи. Этот сервис позволяет наглядно исследовать культуру, проверить гипотезы сдвига («что если?») и опереться на доказанные регрессионные связи от авторов исследования.</p>
+        </div>
+
+        <div class="welcome-steps-grid">
+          <div class="welcome-step-card" data-step="1">
+            <div class="step-num">ШАГ 01</div>
+            <div class="step-icon">🧭</div>
+            <h3>Профиль культуры (20 шкал)</h3>
+            <p>7 признаков <strong>культурного ядра</strong> подсвечены золотом. Клик на овал открывает деловой контекст, риски и плюсы каждого полюса без заумной академической терминологии.</p>
+            <button type="button" class="step-action-btn" id="stepToProfile">Изучить шкалы профиля →</button>
+          </div>
+
+          <div class="welcome-step-card" data-step="2">
+            <div class="step-num">ШАГ 02</div>
+            <div class="step-icon">⚡</div>
+            <h3>Сценарий и 3 развилки</h3>
+            <p>Перейдите во вкладку моделирования. Выберите стратегическую развилку («Статус-кво», «Личная ответственность», «Команда») или двигайте ползунки вручную под свои задачи.</p>
+            <button type="button" class="step-action-btn" id="stepToScenario">Открыть моделирование →</button>
+          </div>
+
+          <div class="welcome-step-card" data-step="3">
+            <div class="step-num">ШАГ 03</div>
+            <div class="step-icon">🎯</div>
+            <h3>Градус сдвига и эффект в HUD</h3>
+            <p>При любом скролле сверху закреплена плавающая панель: градус трансформации, прогноз влияния на мотивацию (+%), снижение риска выгорания (-%) и лояльность.</p>
+            <div class="step-badge-preview">Плавающий HUD при скролле</div>
+          </div>
+
+          <div class="welcome-step-card" data-step="4">
+            <div class="step-num">ШАГ 04</div>
+            <div class="step-icon">📚</div>
+            <h3>База знаний и матрица МГУ</h3>
+            <p>12 прикладных исследований гостеприимства, 5 управленческих ловушек терминов («высокий контекст» ≠ эрудиция), 8 механизмов координации и таблица коэффициентов Слайда 27.</p>
+            <button type="button" class="step-action-btn" id="stepToKnowledge">Перейти к базе знаний →</button>
+          </div>
+        </div>
+      </div>
+    </section>
     <section class="scenario-bar" id="scenarioBar" hidden aria-label="Настройки сценария">
       <div class="scenario-intro"><strong>Исследуйте возможные изменения</strong><p>Смоделируйте целевой профиль курорта. Исходные данные исследования остаются в фоне.</p></div>
       <div class="preset-selector" aria-label="Стратегические развилки исследования">
@@ -48,20 +124,49 @@
           <button type="button" class="cluster-btn" data-cluster="people">Люди и ценности (5)</button>
         </div>
         <div class="impact-hud" id="impactHud" aria-label="Прогнозные индикаторы модели МГУ">
-          <div class="hud-item hud-mode">
-            <span class="hud-label">Режим моделирования</span>
-            <strong id="hudModeTitle">Исходный профиль курорта</strong>
-            <span id="hudModeBadge" class="hud-badge">Исследование МГУ · 2026</span>
+          <div class="hud-main-metrics">
+            <div class="hud-item hud-mode">
+              <span class="hud-label">Режим сценария</span>
+              <strong id="hudModeTitle">Исходный профиль курорта</strong>
+              <span id="hudModeBadge" class="hud-badge">МГУ · 2026</span>
+            </div>
+            <div class="hud-item hud-degree">
+              <span class="hud-label">Градус сдвига</span>
+              <div class="degree-val-wrap">
+                <span class="degree-dial" id="hudDegreeDial">🧭</span>
+                <strong id="hudDegreeVal">0°</strong>
+                <span id="hudDegreeDelta" class="hud-badge-sm">Δ 0,00</span>
+              </div>
+              <span id="hudDegreeDesc" class="hud-desc">Без отклонений</span>
+            </div>
+            <div class="hud-item hud-stat hud-motivation">
+              <span class="hud-label">Мотивация команды</span>
+              <strong id="hudMotivationVal">0,0%</strong>
+              <span id="hudMotivationDesc" class="hud-desc">Базовый уровень</span>
+            </div>
+            <div class="hud-item hud-stat hud-burnout">
+              <span class="hud-label">Снижение выгорания</span>
+              <strong id="hudBurnoutVal">0,0%</strong>
+              <span id="hudBurnoutDesc" class="hud-desc">Базовый уровень</span>
+            </div>
+            <div class="hud-item hud-stat hud-loyalty">
+              <span class="hud-label">Лояльность курорту</span>
+              <strong id="hudLoyaltyVal">0,0%</strong>
+              <span id="hudLoyaltyDesc" class="hud-desc">Базовый уровень</span>
+            </div>
           </div>
-          <div class="hud-item hud-stat">
-            <span class="hud-label">Мотивированность команды</span>
-            <strong id="hudMotivationVal">0,0%</strong>
-            <span id="hudMotivationDesc" class="hud-desc">Базовый уровень</span>
-          </div>
-          <div class="hud-item hud-stat">
-            <span class="hud-label">Снижение риска выгорания</span>
-            <strong id="hudBurnoutVal">0,0%</strong>
-            <span id="hudBurnoutDesc" class="hud-desc">Базовый уровень</span>
+          <div class="hud-active-bar" id="hudActiveBar">
+            <div class="active-focus-info">
+              <span class="focus-dot"></span>
+              <span id="hudFocusText">Выберите характеристику или переместите ползунок для расчета эффекта</span>
+            </div>
+            <div class="hud-quick-presets">
+              <button type="button" class="hud-quick-btn active" data-preset="custom">Свой сценарий</button>
+              <button type="button" class="hud-quick-btn" data-preset="status-quo">1. Статус-кво</button>
+              <button type="button" class="hud-quick-btn" data-preset="personal-responsibility">2. Ответственность</button>
+              <button type="button" class="hud-quick-btn" data-preset="team-leadership">3. Команда</button>
+              <button type="button" class="hud-reset-btn" id="hudQuickReset" title="Сбросить все сдвиги">Сбросить</button>
+            </div>
           </div>
         </div>
         <details class="reading-guide"><summary>Как читать профиль</summary><p>Положение овала показывает, к какому полюсу ближе характеристика. Его длина сохраняет разброс, изображённый в исследовании: длиннее означает более широкий диапазон. Это не доля сотрудников и не установленный доверительный интервал.</p><p>Семь оливковых характеристик отнесены авторами презентации к культурному ядру. Остальные тринадцать дополняют профиль. Полюса не являются оценками «хорошо» и «плохо».</p></details>
@@ -385,7 +490,7 @@
   </div>
 </div>
 </main>
-<section id="intro"><div class="intro-top"><span>Исследование культуры</span><span class="sample">Исследование · 2026</span></div><div class="intro-center"><img src="assets/mriya-mark.svg" alt="Эмблема Мрии"><h1>Культурный код<br>Мрии</h1><p>Увидеть общую картину</p><button id="start" type="button">Открыть исследование <span aria-hidden="true">↗</span></button></div><div class="intro-foot"><span>20 характеристик</span><span>Исследование культуры курорта</span></div></section>
+<section id="intro" hidden><div class="intro-top"><span>Исследование культуры</span><span class="sample">Исследование · 2026</span></div><div class="intro-center"><img src="assets/mriya-mark.svg" alt="Эмблема Мрии"><h1>Культурный код<br>Мрии</h1><p>Увидеть общую картину</p><button id="start" type="button">Открыть исследование <span aria-hidden="true">↗</span></button></div><div class="intro-foot"><span>20 характеристик</span><span>Исследование культуры курорта</span></div></section>
 <canvas id="motion" aria-hidden="true"></canvas>
 <button id="skip" class="quiet" hidden type="button">Перейти к панели <kbd>Esc</kbd></button>
 <button id="tuneToggle" class="quiet" aria-expanded="false" aria-controls="tune" type="button">Настроить движение</button>
