@@ -1,0 +1,36 @@
+{
+  "model_tests": 10,
+  "browser": "Chromium in-app browser",
+  "checked": [
+    "intro reaches profile",
+    "20 scales and 7 core traits",
+    "3 calibrated strategic presets from Slide 46",
+    "4 management clusters filter",
+    "Live Impact HUD with Slide 27 regression deltas",
+    "3-level progressive disclosure tabs (practice, connections, methodology)",
+    "direction window responds to keyboard movement",
+    "12 cross-scale hypothesis links with gain control",
+    "12 full structured research library notes with search",
+    "reset clears changed ranges",
+    "source cuts: 5 loaded images",
+    "library reopens after cuts",
+    "390x844 mobile layout no document overflow",
+    "no console errors or warnings during checks"
+  ],
+  "limitations": [
+    "No claim of measured 60 FPS or all-device performance",
+    "Exact Mriya questionnaire unavailable",
+    "Consequences are interpretations; cross-scale links not calibrated"
+  ],
+  "source": {
+    "sourceProfileSha256": "810ec777116910b36144e1b0269c29abcf82741d6825492762cbaaf8a8125e92",
+    "sourceCardsSha256": "a79bf1b95fa57346d93a98f9402aa186fe108331020cae683f1550ee53ffcf4a",
+    "rows": 20,
+    "core": 7,
+    "cards": 20,
+    "hypotheses": 4,
+    "calibratedLinks": 0,
+    "automaticCouplingDefault": true,
+    "couplingMeaning": "Иллюстрация гипотез; численные коэффициенты не оценены"
+  }
+}

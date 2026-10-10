@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#3D3D3D"><title>Культурный код Мрии</title><link rel="icon" href="assets/mriya-mark.svg"><link rel="stylesheet" href="assets/style.css"><link rel="stylesheet" href="assets/panel.css"></head>
+<body data-state="idle">
+<main id="dashboard" inert aria-hidden="true">
+  <header class="topbar"><div class="brand"><img id="brandMark" src="assets/mriya-mark.svg" alt="Лотос Мрии"><span>Исследование культуры</span></div><span class="sample">Исследование · 2026</span></header>
+  <div class="workspace"><nav class="workspace-nav" aria-label="Разделы исследования">
+<button class="nav-tab active" id="profileTab" aria-pressed="true">Профиль культуры</button>
+<button class="nav-tab" id="scenarioTab" aria-pressed="false">Сценарий изменений</button>
+<button class="nav-tab" id="cutsTab" aria-pressed="false">Разрезы исследования</button>
+<button class="nav-tab" id="knowledgeTab" aria-pressed="false">База знаний <span>12</span></button>
+<span class="workspace-status"><i></i>Мрия · весь курорт</span></nav>
+  <div id="profileView" class="app-view">
+    <div class="page-heading"><div><h1>Культурный код Мрии</h1><p>Как устроено взаимодействие внутри курорта</p></div><button id="replay" class="quiet" type="button">Повторить вступление</button></div>
+    <section class="scenario-bar" id="scenarioBar" hidden aria-label="Настройки сценария">
+      <div class="scenario-intro"><strong>Исследуйте возможные изменения</strong><p>Смоделируйте целевой профиль курорта. Исходные данные исследования остаются в фоне.</p></div>
+      <div class="preset-selector" aria-label="Стратегические развилки исследования">
+        <span class="preset-title">Развилки трансформации (слайд 46 МГУ):</span>
+        <div class="preset-buttons" role="group">
+          <button type="button" class="preset-btn active" id="presetCustom" data-preset="custom">Свой сценарий</button>
+          <button type="button" class="preset-btn" id="presetStatusQuo" data-preset="status-quo">1. «Статус-кво»</button>
+          <button type="button" class="preset-btn" id="presetResponsibility" data-preset="personal-responsibility">2. «Личная ответственность»</button>
+          <button type="button" class="preset-btn" id="presetTeam" data-preset="team-leadership">3. «Командная культура»</button>
+        </div>
+        <div id="presetDescBox" class="preset-desc-box" hidden>
+          <div class="preset-header"><strong id="presetBoxTitle"></strong><span id="presetBoxTagline"></span></div>
+          <p id="presetBoxText"></p>
+          <div class="preset-pros-cons">
+            <div class="preset-pro"><span>Плюсы:</span> <p id="presetBoxPros"></p></div>
+            <div class="preset-con"><span>Риски:</span> <p id="presetBoxCons"></p></div>
+          </div>
+        </div>
+      </div>
+      <div class="scenario-actions"><button id="undoScenario" class="quiet" disabled>Отменить</button><button id="resetScenario" class="quiet" disabled>Сбросить сценарий</button><button id="exportScenario" class="quiet">Сохранить сценарий</button></div>
+      <div class="coupling-controls"><label><input type="checkbox" id="applyLinks" checked> Двигать связанные характеристики</label>
+      <details class="coupling-settings"><summary>Как рассчитывается иллюстрация</summary><p>Расстояние совместного сдвига условное. Значение 0,25 означает: при сдвиге выбранной характеристики на одно деление связанная смещается на четверть деления. Это настройка визуализации, не коэффициент исследования. Учитываются только прямые связи.</p><label class="gain-label">Доля совместного сдвига <input type="range" id="linkGain" min="0.05" max="0.6" step="0.05" value="0.25" aria-label="Доля совместного сдвига"><output id="gainValue">0,25</output></label></details>
+      <p id="couplingNote">Связанные показатели подсвечиваются. Чтобы двигать их вместе, включите условный отклик. Его сила задаётся вами, это не коэффициент исследования.</p></div>
+      <div id="scenarioSummary" aria-live="polite">Нет изменений</div>
+    </section>
+    <div class="dashboard-grid">
+      <section class="profile-card" id="profileCard" aria-labelledby="profileTitle">
+        <div class="profile-heading"><div><h2 id="profileTitle">Профиль культуры</h2><p id="profileHint">Исходный профиль: нажатие на овал открывает объяснение.</p><button id="startScenario" class="start-scenario" type="button">Создать сценарий <span aria-hidden="true">→</span></button></div><div class="legend"><span><i class="core-color"></i>Ядро</span><span><i></i>Вне ядра</span></div></div>
+        <div class="cluster-filter" role="toolbar" aria-label="Фильтр по блокам">
+          <span class="filter-label">Блоки:</span>
+          <button type="button" class="cluster-btn active" data-cluster="all">Все 20 шкал</button>
+          <button type="button" class="cluster-btn" data-cluster="core">Культурное ядро (7)</button>
+          <button type="button" class="cluster-btn" data-cluster="authority">Власть и руководство (3)</button>
+          <button type="button" class="cluster-btn" data-cluster="standards">Стандарты и процессы (5)</button>
+          <button type="button" class="cluster-btn" data-cluster="people">Люди и ценности (5)</button>
+        </div>
+        <div class="impact-hud" id="impactHud" aria-label="Прогнозные индикаторы модели МГУ">
+          <div class="hud-item hud-mode">
+            <span class="hud-label">Режим моделирования</span>
+            <strong id="hudModeTitle">Исходный профиль курорта</strong>
+            <span id="hudModeBadge" class="hud-badge">Исследование МГУ · 2026</span>
+          </div>
+          <div class="hud-item hud-stat">
+            <span class="hud-label">Мотивированность команды</span>
+            <strong id="hudMotivationVal">0,0%</strong>
+            <span id="hudMotivationDesc" class="hud-desc">Базовый уровень</span>
+          </div>
+          <div class="hud-item hud-stat">
+            <span class="hud-label">Снижение риска выгорания</span>
+            <strong id="hudBurnoutVal">0,0%</strong>
+            <span id="hudBurnoutDesc" class="hud-desc">Базовый уровень</span>
+          </div>
+        </div>
+        <details class="reading-guide"><summary>Как читать профиль</summary><p>Положение овала показывает, к какому полюсу ближе характеристика. Его длина сохраняет разброс, изображённый в исследовании: длиннее означает более широкий диапазон. Это не доля сотрудников и не установленный доверительный интервал.</p><p>Семь оливковых характеристик отнесены авторами презентации к культурному ядру. Остальные тринадцать дополняют профиль. Полюса не являются оценками «хорошо» и «плохо».</p></details>
+        <div class="profile-body" id="profileBody"><div class="scale-header"><span class="left">Один полюс</span><div class="numbers"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span></div><span class="right">Другой полюс</span></div>
+          <div id="profileRows"><div class="group-label core"><span>Культурное ядро</span><span>7</span></div>
+<div class="profile-row is-core" data-index="0" data-lo="0.6110347617167893" data-hi="0.8275934458480987">
+      <span class="pole left ">Закрытость для новых людей</span>
+      <svg class="row-scale" viewBox="0 0 1000 32" preserveAspectRatio="none" role="img" aria-label="Диапазон характеристики из исходной презентации">
+        <g class="grid-lines"><line x1="0" x2="0" y1="0" y2="32"/><line x1="200" x2="200" y1="0" y2="32"/><line x1="400" x2="400" y1="0" y2="32"/><line x1="600" x2="600" y1="0" y2="32"/><line x1="800" x2="800" y1="0" y2="32"/><line x1="1000" x2="1000" y1="0" y2="32"/></g><line class="row-baseline" x1="0" x2="1000" y1="16" y2="16"/>
+        <line class="midline" x1="500" x2="500" y1="0" y2="32"/>
+        <ellipse class="oval-glow" cx="719.314104" cy="16" rx="108.279342" ry="3.8"/>
+        <ellipse class="oval" cx="719.314104" cy="16" rx="108.279342" ry="3.8"/>
+      </svg>
+      <span class="pole right preferred">Открытость для новых людей</span>
+    </div>
+<div class="profile-row is-core" data-index="1" data-lo="0.5583295002438557" data-hi="0.7171847241731304">
+      <span class="pole left ">Предрасположенность к стабильности</span>
+      <svg class="row-scale" viewBox="0 0 1000 32" preserveAspectRatio="none" role="img" aria-label="Диапазон характеристики из исходной презентации">
+        <g class="grid-lines"><line x1="0" x2="0" y1="0" y2="32"/><line x1="200" x2="200" y1="0" y2="32"/><line x1="400" x2="400" y1="0" y2="32"/><line x1="600" x2="600" y1="0" y2="32"/><line x1="800" x2="800" y1="0" y2="32"/><line x1="1000" x2="1000" y1="0" y2="32"/></g><line class="row-baseline" x1="0" x2="1000" y1="16" y2="16"/>
+        <line class="midline" x1="500" x2="500" y1="0" y2="32"/>
+        <ellipse class="oval-glow" cx="637.757112" cy="16" rx="79.427612" ry="3.8"/>
+        <ellipse class="oval" cx="637.757112" cy="16" rx="79.427612" ry="3.8"/>
+      </svg>
+      <span class="pole right preferred">Предрасположенность к изменениям</span>
+    </div>
+<div class="profile-row is-core" data-index="2" data-lo="0.5553456884397395" data-hi="0.7300101103592382">
+      <span class="pole left ">Высокое избегание ошибок</span>
+      <svg class="row-scale" viewBox="0 0 1000 32" preserveAspectRatio="none" role="img" aria-label="Диапазон характеристики из исходной презентации">
+        <g class="grid-lines"><line x1="0" x2="0" y1="0" y2="32"/><line x1="200" x2="200" y1="0" y2="32"/><line x1="400" x2="400" y1="0" y2="32"/><line x1="600" x2="600" y1="0" y2="32"/><line x1="800" x2="800" y1="0" y2="32"/><line x1="1000" x2="1000" y1="0" y2="32"/></g><line class="row-baseline" x1="0" x2="1000" y1="16" y2="16"/>
+        <line class="midline" x1="500" x2="500" y1="0" y2="32"/>
+        <ellipse class="oval-glow" cx="642.677899" cy="16" rx="87.332211" ry="3.8"/>
+        <ellipse class="oval" cx="642.677899" cy="16" rx="87.332211" ry="3.8"/>
+      </svg>
+      <span class="pole right preferred">Низкое избегание ошибок</span>
+    </div>
+<div class="profile-row is-core" data-index="3" data-lo="0.5441451948052922" data-hi="0.6712586891171374">
+      <span class="pole left ">Низкоконтекстная коммуникация</span>
+      <svg class="row-scale" viewBox="0 0 1000 32" preserveAspectRatio="none" role="img" aria-label="Диапазон характеристики из исходной презентации">
+        <g class="grid-lines"><line x1="0" x2="0" y1="0" y2="32"/><line x1="200" x2="200" y1="0" y2="32"/><line x1="400" x2="400" y1="0" y2="32"/><line x1="600" x2="600" y1="0" y2="32"/><line x1="800" x2="800" y1="0" y2="32"/><line x1="1000" x2="1000" y1="0" y2="32"/></g><line class="row-baseline" x1="0" x2="1000" y1="16" y2="16"/>
+        <line class="midline" x1="500" x2="500" y1="0" y2="32"/>
+        <ellipse class="oval-glow" cx="607.701942" cy="16" rx="63.556747" ry="3.8"/>
+        <ellipse class="oval" cx="607.701942" cy="16" rx="63.556747" ry="3.8"/>
+      </svg>
+      <span class="pole right preferred">Высококонтекстная коммуникация</span>
+    </div>
+<div class="profile-row is-core" data-index="4" data-lo="0.30042199597310054" data-hi="0.45524188575256574">
+      <span class="pole left preferred">Коллективное принятие решений</span>
+      <svg class="row-scale" viewBox="0 0 1000 32" preserveAspectRatio="none" role="img" aria-label="Диапазон характеристики из исходной презентации">
+        <g class="grid-lines"><line x1="0" x2="0" y1="0" y2="32"/><line x1="200" x2="200" y1="0" y2="32"/><line x1="400" x2="400" y1="0" y2="32"/><line x1="600" x2="600" y1="0" y2="32"/><line x1="800" x2="800" y1="0" y2="32"/><line x1="1000" x2="1000" y1="0" y2="32"/></g><line class="row-baseline" x1="0" x2="1000" y1="16" y2="16"/>
+        <line class="midline" x1="500" x2="500" y1="0" y2="32"/>
+        <ellipse class="oval-glow" cx="377.831941" cy="16" rx="77.409945" ry="3.8"/>
+        <ellipse class="oval" cx="377.831941" cy="16" rx="77.409945" ry="3.8"/>
+      </svg>
+      <span class="pole right ">Единоличное принятие решений</span>
+    </div>
+<div class="profile-row is-core" data-index="5" data-lo="0.35425131796423776" data-hi="0.49721730824524724">
+      <span class="pole left preferred">Индивидуальная работа</span>
+      <svg class="row-scale" viewBox="0 0 1000 32" preserveAspectRatio="none" role="img" aria-label="Диапазон характеристики из исходной презентации">
+        <g class="grid-lines"><line x1="0" x2="0" y1="0" y2="32"/><line x1="200" x2="200" y1="0" y2="32"/><line x1="400" x2="400" y1="0" y2="32"/><line x1="600" x2="600" y1="0" y2="32"/><line x1="800" x2="800" y1="0" y2="32"/><line x1="1000" x2="1000" y1="0" y2="32"/></g><line class="row-baseline" x1="0" x2="1000" y1="16" y2="16"/>
+        <line class="midline" x1="500" x2="500" y1="0" y2="32"/>
+        <ellipse class="oval-glow" cx="425.734313" cy="16" rx="71.482995" ry="3.8"/>
+        <ellipse class="oval" cx="425.734313" cy="16" rx="71.482995" ry="3.8"/>
+      </svg>
+      <span class="pole right ">Командная работа</span>
+    </div>
+<div class="profile-row is-core" data-index="6" data-lo="0.3034063700886315" data-hi="0.4702031181292574">
+      <span class="pole left preferred">Достижительность</span>
+      <svg class="row-scale" viewBox="0 0 1000 32" preserveAspectRatio="none" role="img" aria-label="Диапазон характеристики из исходной презентации">
+        <g class="grid-lines"><line x1="0" x2="0" y1="0" y2="32"/><line x1="200" x2="200" y1="0" y2="32"/><line x1="400" x2="400" y1="0" y2="32"/><line x1="600" x2="600" y1="0" y2="32"/><line x1="800" x2="800" y1="0" y2="32"/><line x1="1000" x2="1000" y1="0" y2="32"/></g><line class="row-baseline" x1="0" x2="1000" y1="16" y2="16"/>
+        <line class="midline" x1="500" x2="500" y1="0" y2="32"/>
+        <ellipse class="oval-glow" cx="386.804744" cy="16" rx="83.398374" ry="3.8"/>
+        <ellipse class="oval" cx="386.804744" cy="16" rx="83.398374" ry="3.8"/>
+      </svg>
+      <span class="pole right ">Гармония</span>
+    </div>
+<div class="group-label other"><span>Остальные характеристики</span><span>13</span></div>
+<div class="profile-row " data-index="7" data-lo="0.254188564010345" data-hi="0.5135320241973848">
+      <span class="pole left ">Ориентация на кооперацию</span>
+      <svg class="row-scale" viewBox="0 0 1000 32" preserveAspectRatio="none" role="img" aria-label="Диапазон характеристики из исходной презентации">
+        <g class="grid-lines"><line x1="0" x2="0" y1="0" y2="32"/><line x1="200" x2="200" y1="0" y2="32"/><line x1="400" x2="400" y1="0" y2="32"/><line x1="600" x2="600" y1="0" y2="32"/><line x1="800" x2="800" y1="0" y2="32"/><line x1="1000" x2="1000" y1="0" y2="32"/></g><line class="row-baseline" x1="0" x2="1000" y1="16" y2="16"/>
+        <line class="midline" x1="500" x2="500" y1="0" y2="32"/>
+        <ellipse class="oval-glow" cx="383.860294" cy="16" rx="129.671730" ry="3.8"/>
+        <ellipse class="oval" cx="383.860294" cy="16" rx="129.671730" ry="3.8"/>
+      </svg>
+      <span class="pole right ">Ориентация на конкуренцию</span>
+    </div>
+<div class="profile-row " data-index="8" data-lo="0.2262471223713347" data-hi="0.5391483081361589">
+      <span class="pole left ">Сконцентрированные полномочия</span>
+      <svg class="row-scale" viewBox="0 0 1000 32" preserveAspectRatio="none" role="img" aria-label="Диапазон характеристики из исходной презентации">
+        <g class="grid-lines"><line x1="0" x2="0" y1="0" y2="32"/><line x1="200" x2="200" y1="0" y2="32"/><line x1="400" x2="400" y1="0" y2="32"/><line x1="600" x2="600" y1="0" y2="32"/><line x1="800" x2="800" y1="0" y2="32"/><line x1="1000" x2="1000" y1="0" y2="32"/></g><line class="row-baseline" x1="0" x2="1000" y1="16" y2="16"/>
+        <line class="midline" x1="500" x2="500" y1="0" y2="32"/>
+        <ellipse class="oval-glow" cx="382.697715" cy="16" rx="156.450593" ry="3.8"/>
+        <ellipse class="oval" cx="382.697715" cy="16" rx="156.450593" ry="3.8"/>
+      </svg>
+      <span class="pole right ">Распределённые полномочия</span>
+    </div>
+<div class="profile-row " data-index="9" data-lo="0.33096037916283827" data-hi="0.5786771136630052">
+      <span class="pole left ">Сильный контроль</span>
+      <svg class="row-scale" viewBox="0 0 1000 32" preserveAspectRatio="none" role="img" aria-label="Диапазон характеристики из исходной презентации">
+        <g class="grid-lines"><line x1="0" x2="0" y1="0" y2="32"/><line x1="200" x2="200" y1="0" y2="32"/><line x1="400" x2="400" y1="0" y2="32"/><line x1="600" x2="600" y1="0" y2="32"/><line x1="800" x2="800" y1="0" y2="32"/><line x1="1000" x2="1000" y1="0" y2="32"/></g><line class="row-baseline" x1="0" x2="1000" y1="16" y2="16"/>
+        <line class="midline" x1="500" x2="500" y1="0" y2="32"/>
+        <ellipse class="oval-glow" cx="454.818746" cy="16" rx="123.858367" ry="3.8"/>
+        <ellipse class="oval" cx="454.818746" cy="16" rx="123.858367" ry="3.8"/>
+      </svg>
+      <span class="pole right ">Слабый контроль</span>
+    </div>
+<div class="profile-row " data-index="10" data-lo="0.43330911645506887" data-hi="0.6996666617933011">
+      <span class="pole left ">Внутренняя ориентация</span>
+      <svg class="row-scale" viewBox="0 0 1000 32" preserveAspectRatio="none" role="img" aria-label="Диапазон характеристики из исходной презентации">
+        <g class="grid-lines"><line x1="0" x2="0" y1="0" y2="32"/><line x1="200" x2="200" y1="0" y2="32"/><line x1="400" x2="400" y1="0" y2="32"/><line x1="600" x2="600" y1="0" y2="32"/><line x1="800" x2="800" y1="0" y2="32"/><line x1="1000" x2="1000" y1="0" y2="32"/></g><line class="row-baseline" x1="0" x2="1000" y1="16" y2="16"/>
+        <line class="midline" x1="500" x2="500" y1="0" y2="32"/>
+        <ellipse class="oval-glow" cx="566.487889" cy="16" rx="133.178773" ry="3.8"/>
+        <ellipse class="oval" cx="566.487889" cy="16" rx="133.178773" ry="3.8"/>
+      </svg>
+      <span class="pole right ">Внешняя ориентация</span>
+    </div>
+<div class="profile-row " data-index="11" data-lo="0.43098377131769433" data-hi="0.6205670648206357">
+      <span class="pole left ">Регламентированность</span>
+      <svg class="row-scale" viewBox="0 0 1000 32" preserveAspectRatio="none" role="img" aria-label="Диапазон характеристики из исходной презентации">
+        <g class="grid-lines"><line x1="0" x2="0" y1="0" y2="32"/><line x1="200" x2="200" y1="0" y2="32"/><line x1="400" x2="400" y1="0" y2="32"/><line x1="600" x2="600" y1="0" y2="32"/><line x1="800" x2="800" y1="0" y2="32"/><line x1="1000" x2="1000" y1="0" y2="32"/></g><line class="row-baseline" x1="0" x2="1000" y1="16" y2="16"/>
+        <line class="midline" x1="500" x2="500" y1="0" y2="32"/>
+        <ellipse class="oval-glow" cx="525.775418" cy="16" rx="94.791647" ry="3.8"/>
+        <ellipse class="oval" cx="525.775418" cy="16" rx="94.791647" ry="3.8"/>
+      </svg>
+      <span class="pole right ">Гибкость</span>
+    </div>
+<div class="profile-row " data-index="12" data-lo="0.42865898849173456" data-hi="0.6624212154848568">
+      <span class="pole left ">Ориентация на профессию</span>
+      <svg class="row-scale" viewBox="0 0 1000 32" preserveAspectRatio="none" role="img" aria-label="Диапазон характеристики из исходной презентации">
+        <g class="grid-lines"><line x1="0" x2="0" y1="0" y2="32"/><line x1="200" x2="200" y1="0" y2="32"/><line x1="400" x2="400" y1="0" y2="32"/><line x1="600" x2="600" y1="0" y2="32"/><line x1="800" x2="800" y1="0" y2="32"/><line x1="1000" x2="1000" y1="0" y2="32"/></g><line class="row-baseline" x1="0" x2="1000" y1="16" y2="16"/>
+        <line class="midline" x1="500" x2="500" y1="0" y2="32"/>
+        <ellipse class="oval-glow" cx="545.540102" cy="16" rx="116.881113" ry="3.8"/>
+        <ellipse class="oval" cx="545.540102" cy="16" rx="116.881113" ry="3.8"/>
+      </svg>
+      <span class="pole right ">Ориентация на место работы</span>
+    </div>
+<div class="profile-row " data-index="13" data-lo="0.3815342929365064" data-hi="0.5263980842424971">
+      <span class="pole left ">Ориентация на работу</span>
+      <svg class="row-scale" viewBox="0 0 1000 32" preserveAspectRatio="none" role="img" aria-label="Диапазон характеристики из исходной презентации">
+        <g class="grid-lines"><line x1="0" x2="0" y1="0" y2="32"/><line x1="200" x2="200" y1="0" y2="32"/><line x1="400" x2="400" y1="0" y2="32"/><line x1="600" x2="600" y1="0" y2="32"/><line x1="800" x2="800" y1="0" y2="32"/><line x1="1000" x2="1000" y1="0" y2="32"/></g><line class="row-baseline" x1="0" x2="1000" y1="16" y2="16"/>
+        <line class="midline" x1="500" x2="500" y1="0" y2="32"/>
+        <ellipse class="oval-glow" cx="453.966189" cy="16" rx="72.431896" ry="3.8"/>
+        <ellipse class="oval" cx="453.966189" cy="16" rx="72.431896" ry="3.8"/>
+      </svg>
+      <span class="pole right ">Ориентация на работника</span>
+    </div>
+<div class="profile-row " data-index="14" data-lo="0.07041750872801035" data-hi="0.6577712749586607">
+      <span class="pole left ">Неформальная обстановка на рабочем месте</span>
+      <svg class="row-scale" viewBox="0 0 1000 32" preserveAspectRatio="none" role="img" aria-label="Диапазон характеристики из исходной презентации">
+        <g class="grid-lines"><line x1="0" x2="0" y1="0" y2="32"/><line x1="200" x2="200" y1="0" y2="32"/><line x1="400" x2="400" y1="0" y2="32"/><line x1="600" x2="600" y1="0" y2="32"/><line x1="800" x2="800" y1="0" y2="32"/><line x1="1000" x2="1000" y1="0" y2="32"/></g><line class="row-baseline" x1="0" x2="1000" y1="16" y2="16"/>
+        <line class="midline" x1="500" x2="500" y1="0" y2="32"/>
+        <ellipse class="oval-glow" cx="364.094392" cy="16" rx="293.676883" ry="3.8"/>
+        <ellipse class="oval" cx="364.094392" cy="16" rx="293.676883" ry="3.8"/>
+      </svg>
+      <span class="pole right ">Формальная обстановка на рабочем месте</span>
+    </div>
+<div class="profile-row " data-index="15" data-lo="0.3635133367146993" data-hi="0.5786778634115584">
+      <span class="pole left ">Вовлечённый стиль управления</span>
+      <svg class="row-scale" viewBox="0 0 1000 32" preserveAspectRatio="none" role="img" aria-label="Диапазон характеристики из исходной презентации">
+        <g class="grid-lines"><line x1="0" x2="0" y1="0" y2="32"/><line x1="200" x2="200" y1="0" y2="32"/><line x1="400" x2="400" y1="0" y2="32"/><line x1="600" x2="600" y1="0" y2="32"/><line x1="800" x2="800" y1="0" y2="32"/><line x1="1000" x2="1000" y1="0" y2="32"/></g><line class="row-baseline" x1="0" x2="1000" y1="16" y2="16"/>
+        <line class="midline" x1="500" x2="500" y1="0" y2="32"/>
+        <ellipse class="oval-glow" cx="471.095600" cy="16" rx="107.582263" ry="3.8"/>
+        <ellipse class="oval" cx="471.095600" cy="16" rx="107.582263" ry="3.8"/>
+      </svg>
+      <span class="pole right ">Отстранённый стиль управления</span>
+    </div>
+<div class="profile-row " data-index="16" data-lo="0.40071754685272426" data-hi="0.6647473103707844">
+      <span class="pole left ">Ориентация на процесс</span>
+      <svg class="row-scale" viewBox="0 0 1000 32" preserveAspectRatio="none" role="img" aria-label="Диапазон характеристики из исходной презентации">
+        <g class="grid-lines"><line x1="0" x2="0" y1="0" y2="32"/><line x1="200" x2="200" y1="0" y2="32"/><line x1="400" x2="400" y1="0" y2="32"/><line x1="600" x2="600" y1="0" y2="32"/><line x1="800" x2="800" y1="0" y2="32"/><line x1="1000" x2="1000" y1="0" y2="32"/></g><line class="row-baseline" x1="0" x2="1000" y1="16" y2="16"/>
+        <line class="midline" x1="500" x2="500" y1="0" y2="32"/>
+        <ellipse class="oval-glow" cx="532.732429" cy="16" rx="132.014882" ry="3.8"/>
+        <ellipse class="oval" cx="532.732429" cy="16" rx="132.014882" ry="3.8"/>
+      </svg>
+      <span class="pole right ">Ориентация на результат</span>
+    </div>
+<div class="profile-row " data-index="17" data-lo="0.31929504142548193" data-hi="0.5461230314883146">
+      <span class="pole left ">Ориентация на критику</span>
+      <svg class="row-scale" viewBox="0 0 1000 32" preserveAspectRatio="none" role="img" aria-label="Диапазон характеристики из исходной презентации">
+        <g class="grid-lines"><line x1="0" x2="0" y1="0" y2="32"/><line x1="200" x2="200" y1="0" y2="32"/><line x1="400" x2="400" y1="0" y2="32"/><line x1="600" x2="600" y1="0" y2="32"/><line x1="800" x2="800" y1="0" y2="32"/><line x1="1000" x2="1000" y1="0" y2="32"/></g><line class="row-baseline" x1="0" x2="1000" y1="16" y2="16"/>
+        <line class="midline" x1="500" x2="500" y1="0" y2="32"/>
+        <ellipse class="oval-glow" cx="432.709036" cy="16" rx="113.413995" ry="3.8"/>
+        <ellipse class="oval" cx="432.709036" cy="16" rx="113.413995" ry="3.8"/>
+      </svg>
+      <span class="pole right ">Ориентация на согласие</span>
+    </div>
+<div class="profile-row " data-index="18" data-lo="0.4276511389992581" data-hi="0.6044099835017831">
+      <span class="pole left ">Приоритет опыта / статуса</span>
+      <svg class="row-scale" viewBox="0 0 1000 32" preserveAspectRatio="none" role="img" aria-label="Диапазон характеристики из исходной презентации">
+        <g class="grid-lines"><line x1="0" x2="0" y1="0" y2="32"/><line x1="200" x2="200" y1="0" y2="32"/><line x1="400" x2="400" y1="0" y2="32"/><line x1="600" x2="600" y1="0" y2="32"/><line x1="800" x2="800" y1="0" y2="32"/><line x1="1000" x2="1000" y1="0" y2="32"/></g><line class="row-baseline" x1="0" x2="1000" y1="16" y2="16"/>
+        <line class="midline" x1="500" x2="500" y1="0" y2="32"/>
+        <ellipse class="oval-glow" cx="516.030561" cy="16" rx="88.379422" ry="3.8"/>
+        <ellipse class="oval" cx="516.030561" cy="16" rx="88.379422" ry="3.8"/>
+      </svg>
+      <span class="pole right ">Приоритет результата / компетенций</span>
+    </div>
+<div class="profile-row " data-index="19" data-lo="0.3751398749644338" data-hi="0.5554242246006745">
+      <span class="pole left ">Чёткое понимание границ ответственности</span>
+      <svg class="row-scale" viewBox="0 0 1000 32" preserveAspectRatio="none" role="img" aria-label="Диапазон характеристики из исходной презентации">
+        <g class="grid-lines"><line x1="0" x2="0" y1="0" y2="32"/><line x1="200" x2="200" y1="0" y2="32"/><line x1="400" x2="400" y1="0" y2="32"/><line x1="600" x2="600" y1="0" y2="32"/><line x1="800" x2="800" y1="0" y2="32"/><line x1="1000" x2="1000" y1="0" y2="32"/></g><line class="row-baseline" x1="0" x2="1000" y1="16" y2="16"/>
+        <line class="midline" x1="500" x2="500" y1="0" y2="32"/>
+        <ellipse class="oval-glow" cx="465.282050" cy="16" rx="90.142175" ry="3.8"/>
+        <ellipse class="oval" cx="465.282050" cy="16" rx="90.142175" ry="3.8"/>
+      </svg>
+      <span class="pole right ">Широкое понимание границ ответственности</span>
+    </div></div><svg id="threadGraphic" aria-hidden="true"><path id="profileThread"/><path id="scenarioThread"/><g id="linkThreads"></g></svg>
+        </div>
+        <footer><span><i class="dashed"></i>Середина шкалы · 3,5</span><span>Источник: презентация исследования, слайд 18</span></footer>
+      </section>
+      <aside>
+        <section class="info-card detail-card" id="readCard" aria-labelledby="detailTitle">
+          <div class="detail-top"><span id="detailGroup">Культурное ядро</span><span id="detailNumber">01 / 20</span></div>
+          <h2 id="detailTitle"></h2>
+          <div class="detail-tabs" role="tablist" aria-label="Уровни погружения">
+            <button type="button" class="detail-tab active" id="tabPractice" data-tab="practice" role="tab" aria-selected="true">1. Смысл для курорта</button>
+            <button type="button" class="detail-tab" id="tabConnections" data-tab="connections" role="tab" aria-selected="false">2. Связи и эффекты</button>
+            <button type="button" class="detail-tab" id="tabMethodology" data-tab="methodology" role="tab" aria-selected="false">3. Научная база</button>
+          </div>
+          <div class="detail-pane active" id="panePractice">
+            <div id="detailContent"></div>
+          </div>
+          <div class="detail-pane" id="paneConnections" hidden>
+            <section id="connections"><h3>Связанные характеристики</h3><div id="connectionContent"></div></section>
+          </div>
+          <div class="detail-pane" id="paneMethodology" hidden>
+            <div id="evidenceContent"></div>
+          </div>
+        </section>
+        <section class="study-card" id="studyCard">
+          <h2>Основа профиля</h2>
+          <div class="study-stats"><div><strong>1 047</strong><span>валидных анкет</span></div><div><strong>33<small>%</small></strong><span>участие</span></div></div>
+          <p>15 августа – 9 сентября 2026</p>
+          <a class="source-link" href="sources/mriya-research.pdf#page=18" target="_blank" rel="noopener">Исходный профиль · слайд 18 ↗</a>
+        </section>
+      </aside>
+    </div>
+  </div>
+  <div id="cutsView" class="app-view" hidden>
+    <div class="page-heading">
+      <div>
+        <h1>Разрезы исследования</h1>
+        <p>Сохранённые оригинальные слайды МГУ по группам персонала курорта Мрия</p>
+      </div>
+    </div>
+    <div class="cuts-grid" id="cutsContainer"></div>
+  </div>
+  <div id="knowledgeView" class="app-view" hidden>
+    <div class="page-heading">
+      <div>
+        <h1>База знаний</h1>
+        <p>Методология исследования, 12 научных публикаций, карта управленческих механизмов и корреляции слайда 27</p>
+      </div>
+    </div>
+    <nav class="knav-bar" role="tablist" aria-label="Разделы базы знаний">
+      <button type="button" class="knav-tab active" id="knavLibrary" data-kpane="kpaneLibrary" role="tab" aria-selected="true">12 исследований и конспекты</button>
+      <button type="button" class="knav-tab" id="knavCore" data-kpane="kpaneCore" role="tab" aria-selected="false">Методология и ядро культуры</button>
+      <button type="button" class="knav-tab" id="knavMechanisms" data-kpane="kpaneMechanisms" role="tab" aria-selected="false">Карта механизмов для курорта</button>
+      <button type="button" class="knav-tab" id="knavCorrelations" data-kpane="kpaneCorrelations" role="tab" aria-selected="false">Эмпирические связи (Слайд 27)</button>
+    </nav>
+    <div class="kpane active" id="kpaneLibrary">
+      <input id="knowledgeSearch" type="search" placeholder="Поиск по публикациям, авторам или темам..." aria-label="Поиск по публикациям">
+      <div class="kfilter-bar" id="kfilterBar">
+        <span class="filter-label">Темы:</span>
+        <button type="button" class="kfilter-pill active" data-kfilter="all">Все (12)</button>
+        <button type="button" class="kfilter-pill" data-kfilter="code">Культура и эффективность</button>
+        <button type="button" class="kfilter-pill" data-kfilter="innovation">Инновации и реформы</button>
+        <button type="button" class="kfilter-pill" data-kfilter="trust">Доверие и шоки</button>
+        <button type="button" class="kfilter-pill" data-kfilter="tech">ИТ и поколения</button>
+      </div>
+      <div id="knowledgeLibraryItems"></div>
+    </div>
+    <div class="kpane" id="kpaneCore" hidden>
+      <div class="guide-box">
+        <h3>Что такое культурное ядро и как его понимать</h3>
+        <p>В методике Института национальных проектов (МГУ) под культурным кодом понимаются устойчивые групповые рабочие практики компании, а не личные качества отдельных людей. Культурное ядро — это 7 характеристик, по которым разные сегменты курорта демонстрируют согласованное смещение к общему полюсу.</p>
+        <div class="warning-note">
+          <strong>Важное управленческое правило:</strong> «Не вошло в ядро» ни в коем случае не означает «недостаток», «сотрудники этого не умеют» или «это дефект, который надо исправлять». Это означает лишь то, что в данном признаке проявилась естественная дифференциация между подразделениями курорта (например, между операционными службами и бэк-офисом), либо ответы распределились без явного доминирования одного полюса.
+        </div>
+      </div>
+      <div class="guide-box">
+        <h3>Устройство шкалы 1–6 и порог 3,5</h3>
+        <p>Опрос строился по принципу семантического дифференциала: респондент выбирает позицию между двумя противоположными описаниями рабочей практики. Значение 3,5 — это строгая математическая середина диапазона 1–6, а не нормативный критерий «хорошо / плохо».</p>
+        <div class="warning-note">
+          Средний балл нельзя переводить в «процент сотрудников». Например, балл 4,2 на шкале не означает, что «64% сотрудников разделяют эту норму». Одинаковый средний балл может сформироваться как у сплоченной команды с близкими оценками, так и у подразделения с бимодальным расколом на две группы.
+        </div>
+      </div>
+      <h3 style="margin-top:28px;font-size:18px;">5 опасных управленческих ловушек в терминах</h3>
+      <p class="muted" style="margin-bottom:14px;">Разбор терминов из методического приложения к исследованию, которые на стратегической сессии чаще всего вызывали путаницу.</p>
+      <div class="traps-grid" id="trapsContainer"></div>
+    </div>
+    <div class="kpane" id="kpaneMechanisms" hidden>
+      <div class="guide-box">
+        <h3>Карта организационных механизмов для курорта Мрия</h3>
+        <p>Синтез институциональной теории и эмпирических исследований. Показывает, как поведенческие нормы влияют на операционные издержки, качество гостевого сервиса и координацию подразделений.</p>
+      </div>
+      <div class="mechanisms-grid" id="mechanismsContainer"></div>
+    </div>
+    <div class="kpane" id="kpaneCorrelations" hidden>
+      <div class="guide-box">
+        <h3>Матрица связей культурного кода курорта (Слайд 27)</h3>
+        <p>Эмпирические коэффициенты множественной регрессии исследования МГУ (август 2026, 1 047 валидных анкет сотрудников Мрии). Показывают направление и статистическую силу связи характеристик с ключевыми бизнес-метриками.</p>
+      </div>
+      <div class="table-wrap">
+        <table class="data-table" id="correlationsTable">
+          <thead>
+            <tr>
+              <th>Характеристика</th>
+              <th>Статус</th>
+              <th>Полюс в исследовании</th>
+              <th>Мотивированность</th>
+              <th>Снижение выгорания</th>
+              <th>Удовлетворённость</th>
+              <th>Лояльность</th>
+              <th>Управленческий вывод</th>
+            </tr>
+          </thead>
+          <tbody id="correlationsBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</main>
+<section id="intro"><div class="intro-top"><span>Исследование культуры</span><span class="sample">Исследование · 2026</span></div><div class="intro-center"><img src="assets/mriya-mark.svg" alt="Эмблема Мрии"><h1>Культурный код<br>Мрии</h1><p>Увидеть общую картину</p><button id="start" type="button">Открыть исследование <span aria-hidden="true">↗</span></button></div><div class="intro-foot"><span>20 характеристик</span><span>Исследование культуры курорта</span></div></section>
+<canvas id="motion" aria-hidden="true"></canvas>
+<button id="skip" class="quiet" hidden type="button">Перейти к панели <kbd>Esc</kbd></button>
+<button id="tuneToggle" class="quiet" aria-expanded="false" aria-controls="tune" type="button">Настроить движение</button>
+<section id="tune" hidden aria-labelledby="tuneTitle"><h2 id="tuneTitle">Настройка визуала</h2><p>Параметры этой пробы</p><label>Размер частиц <output id="sizeValue">1,0</output><input id="size" type="range" min="0.6" max="1.8" step="0.05" value="1"></label><label>Свечение <output id="glowValue">0,28</output><input id="glow" type="range" min="0" max="0.7" step="0.02" value="0.28"></label><label>Скорость <output id="speedValue">1,0</output><input id="speed" type="range" min="0.6" max="1.4" step="0.05" value="1"></label><label>Размах потока <output id="flowValue">1,0</output><input id="flow" type="range" min="0.4" max="1.4" step="0.05" value="1"></label><div class="tune-actions"><button id="tuneReplay" type="button">Посмотреть</button><button id="tuneReset" type="button">Сбросить</button></div></section>
+<div id="traitTooltip" class="trait-tooltip" role="tooltip" hidden></div>
+<dialog id="libraryDialog" aria-labelledby="libraryTitle"><div class="library-header"><div><p>Методика и контекст</p><h2 id="libraryTitle">База знаний</h2></div><button id="libraryClose" class="quiet" aria-label="Закрыть базу знаний">Закрыть</button></div><p class="library-lead">12 публикаций. У каждой указаны доступность, объём изучения и границы применения. Определения шкал доступны в разделе «Почему так?».</p><input id="librarySearch" type="search" placeholder="Найти публикацию или тему" aria-label="Поиск по базе знаний"><div id="libraryItems"></div></dialog>
+<div id="announcer" class="sr-only" aria-live="polite"></div><noscript>Для анимации требуется JavaScript.</noscript><script src="assets/app.js"></script><script src="assets/panel.js"></script></body></html>

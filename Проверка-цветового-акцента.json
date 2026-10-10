@@ -1,0 +1,17 @@
+{
+  "change": "Pantone 521 C scenario accent",
+  "color": "#9A6EAC",
+  "source": "Brand guide PDF 38",
+  "verified": [
+    "Local browser loads",
+    "Create scenario action visible",
+    "Scenario legend visible",
+    "Teamwork movement 0.426 to 0.650 shows lilac oval and profile line",
+    "Original profile geometry hash unchanged"
+  ],
+  "not_changed": [
+    "Scenario calculation",
+    "Existing fixed explanation popup"
+  ],
+  "publication": "packaging"
+}

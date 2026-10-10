@@ -1,0 +1,11 @@
+{
+  "sourceProfileSha256": "810ec777116910b36144e1b0269c29abcf82741d6825492762cbaaf8a8125e92",
+  "sourceCardsSha256": "a79bf1b95fa57346d93a98f9402aa186fe108331020cae683f1550ee53ffcf4a",
+  "rows": 20,
+  "core": 7,
+  "cards": 20,
+  "hypotheses": 4,
+  "calibratedLinks": 0,
+  "automaticCouplingDefault": true,
+  "couplingMeaning": "Иллюстрация гипотез; численные коэффициенты не оценены"
+}

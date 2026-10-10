@@ -1,0 +1,13 @@
+{
+  "model_tests_passed": 8,
+  "browser_checks": [
+    "Mouse drag moves selected teamwork range and two linked ranges",
+    "Explanation is static inside readCard",
+    "No context close button, no scenario hover popup",
+    "Undo restores all three ranges",
+    "Original profile geometry unchanged"
+  ],
+  "coupling_default": true,
+  "coefficient_status": "Illustration only, not calibrated",
+  "reading_complete_publications": 6
+}
