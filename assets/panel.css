@@ -39,7 +39,7 @@ body {
 
 a { color: inherit; text-underline-offset: 3px; }
 button, a, input, summary { -webkit-tap-highlight-color: transparent; }
-a:focus-visible, summary:focus-visible, [tabindex]:focus-visible {
+a:focus-visible, summary:focus-visible, button:focus-visible {
   outline: 2px solid var(--core-olive);
   outline-offset: 3px;
 }
@@ -670,6 +670,11 @@ a:focus-visible, summary:focus-visible, [tabindex]:focus-visible {
 .pole.left { text-align: right; }
 .pole.right { text-align: left; }
 .pole:hover { color: #FFFFFF; }
+.pole.is-active-target {
+  color: var(--scenario-lilac) !important;
+  font-weight: 700 !important;
+  text-shadow: 0 0 8px rgba(154, 110, 172, 0.4);
+}
 .pole.preferred {
   font-weight: 600;
   color: var(--text-main);
@@ -682,12 +687,39 @@ a:focus-visible, summary:focus-visible, [tabindex]:focus-visible {
    SVG Scale & Sliders (Sleek, No White Bounding Box)
    ========================================================================== */
 
+/* Zero bounding box or focus outline on SVG, scales and range inputs */
+.range-wrap,
+.range-wrap:focus,
+.range-wrap:focus-visible,
+.range-wrap:focus-within,
+.row-scale,
+.row-scale:focus,
+.row-scale:focus-visible,
+svg,
+svg:focus,
+svg:focus-visible,
+.range-input,
+.range-input:focus,
+.range-input:focus-visible {
+  outline: none !important;
+  outline-style: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
 .range-wrap {
   height: 38px;
   position: relative;
   min-width: 0;
   z-index: 2;
   user-select: none;
+  cursor: grab;
+  touch-action: pan-y;
+}
+.range-wrap:active,
+.profile-row.is-dragging .range-wrap {
+  cursor: grabbing;
 }
 
 .row-scale {
@@ -759,9 +791,8 @@ a:focus-visible, summary:focus-visible, [tabindex]:focus-visible {
   height: 100%;
   margin: 0;
   opacity: 0;
-  cursor: grab;
-  touch-action: pan-y;
-  z-index: 5;
+  pointer-events: none;
+  z-index: 1;
   outline: none !important;
   box-shadow: none !important;
   border: none !important;
@@ -1297,7 +1328,8 @@ aside { display: grid; gap: 18px; }
 }
 
 /* Tooltip */
-.trait-tooltip {
+.trait-tooltip, #traitTooltip {
+  display: none !important;
   position: fixed;
   z-index: 120;
   max-width: 320px;
