@@ -300,3 +300,53 @@ kbd {
   transform: translateY(-1px);
 }
 .intro-center button span { font-size: 17px; font-weight: 400; }
+
+@media (max-width: 640px) {
+  #intro {
+    padding: 24px 16px;
+  }
+  .intro-top {
+    font-size: 11px;
+  }
+  .intro-top > span:first-child {
+    font-size: 13px;
+  }
+  .intro-top .sample {
+    font-size: 10px;
+  }
+  .intro-center > img {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 16px;
+  }
+  .intro-center h1 {
+    font-size: clamp(30px, 8.5vw, 42px);
+    letter-spacing: -0.5px;
+    line-height: 1.15;
+  }
+  .intro-center p {
+    font-size: 13px;
+    margin-top: 10px;
+  }
+  .intro-center button {
+    margin-top: 22px;
+    padding: 11px 18px;
+    font-size: 13px;
+    gap: 12px;
+  }
+  .intro-foot {
+    font-size: 10px;
+  }
+  #skip {
+    top: 10px;
+    right: 12px;
+    font-size: 11px;
+    padding: 5px 10px;
+  }
+  #tuneToggle {
+    bottom: 10px;
+    right: 12px;
+    font-size: 10px;
+    padding: 5px 9px;
+  }
+}

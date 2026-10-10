@@ -1,3 +1,14 @@
+
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+#dashboard {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
 /* ==========================================================================
    Mriya Resort & SPA — Cultural Code Analytics Dashboard
    Design Archetype: Linear (Strict dark anthracite, compact precision graphs,
@@ -501,7 +512,7 @@ a:focus-visible, summary:focus-visible, button:focus-visible {
   align-items: start;
 }
 @media (max-width: 1040px) {
-  .dashboard-grid { grid-template-columns: 1fr; }
+  .dashboard-grid { grid-template-columns: minmax(0, 1fr); }
 }
 
 .profile-card {
@@ -1375,4 +1386,466 @@ footer {
   height: 0;
   border-top: 1px dashed var(--text-muted);
   margin-right: 6px;
+}
+
+
+/* ==========================================================================
+   Mobile & Responsive Adaptations (Screen width <= 768px and <= 480px)
+   Strict isolation: Zero alterations to desktop layout (>768px / >1040px)
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  /* Topbar */
+  .topbar {
+    height: 48px;
+    padding: 0 12px;
+  }
+  .brand {
+    gap: 8px;
+  }
+  .brand img {
+    width: 24px;
+    height: 24px;
+  }
+  .brand-text strong {
+    font-size: 13px;
+  }
+  .brand-text span {
+    font-size: 9px;
+  }
+  .topbar-actions {
+    gap: 6px;
+  }
+  .header-guide-btn {
+    display: none;
+  }
+  .replay-btn {
+    padding: 4px 8px;
+    font-size: 11px;
+  }
+  .sample {
+    font-size: 9px;
+  }
+
+  /* Workspace & Navigation */
+  .workspace {
+    width: 100%;
+    max-width: 100%;
+    padding: 10px 10px 40px;
+    box-sizing: border-box;
+  }
+
+  .workspace-nav {
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    height: auto;
+    padding: 3px;
+    gap: 4px;
+    margin-bottom: 12px;
+  }
+  .workspace-nav::-webkit-scrollbar {
+    display: none;
+  }
+  .nav-tab {
+    flex-shrink: 0;
+    padding: 6px 11px;
+    font-size: 11px;
+    white-space: nowrap;
+  }
+  .workspace-status {
+    display: none;
+  }
+
+  /* Page Heading */
+  .page-heading {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .page-heading h1 {
+    font-size: 23px;
+    line-height: 1.2;
+  }
+  .page-heading p {
+    font-size: 11px;
+  }
+  .page-heading-actions {
+    width: 100%;
+  }
+  .guide-trigger-btn {
+    width: 100%;
+    text-align: center;
+    padding: 6px 12px;
+    font-size: 11px;
+  }
+
+  /* Welcome Guide Card */
+  .welcome-guide {
+    padding: 14px 12px;
+    margin-bottom: 14px;
+  }
+  .welcome-title-wrap h2 {
+    font-size: 17px;
+  }
+  .welcome-subtitle {
+    font-size: 11px;
+  }
+
+  /* Sticky Impact HUD */
+  .impact-hud {
+    top: 48px;
+    padding: 8px 10px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+  }
+  .hud-main-metrics {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .hud-item {
+    gap: 1px;
+  }
+  .hud-label {
+    font-size: 8px;
+  }
+  .hud-degree strong {
+    font-size: 16px;
+  }
+  .hud-stat strong {
+    font-size: 14px;
+  }
+  .hud-desc {
+    font-size: 9px;
+  }
+  .hud-quick-presets {
+    grid-column: 1 / -1;
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 4px;
+    padding-top: 6px;
+    border-top: 1px solid var(--edge-subtle);
+  }
+  .hud-quick-presets::-webkit-scrollbar {
+    display: none;
+  }
+  .hud-quick-btn {
+    flex-shrink: 0;
+    padding: 4px 8px;
+    font-size: 10px;
+    white-space: nowrap;
+  }
+  .hud-reset-btn {
+    flex-shrink: 0;
+    padding: 4px 8px;
+    font-size: 10px;
+  }
+  .hud-active-bar {
+    font-size: 10px;
+    line-height: 1.35;
+    white-space: normal;
+  }
+
+  /* Cluster Filters */
+  .cluster-filter {
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    flex-wrap: nowrap;
+    gap: 6px;
+    margin: 10px 0 12px;
+    padding-bottom: 4px;
+  }
+  .cluster-filter::-webkit-scrollbar {
+    display: none;
+  }
+  .filter-label {
+    flex-shrink: 0;
+    font-size: 10px;
+  }
+  .cluster-btn {
+    flex-shrink: 0;
+    padding: 4px 10px;
+    font-size: 11px;
+    white-space: nowrap;
+  }
+
+  /* Profile Card & Bipolar Scale Rows */
+  .profile-card {
+    padding: 14px 10px;
+    border-radius: 8px;
+  }
+  .profile-heading {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .profile-heading h2 {
+    font-size: 18px;
+  }
+  .profile-heading p {
+    font-size: 11px;
+  }
+  .start-scenario {
+    width: 100%;
+    justify-content: center;
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+  .legend {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 10px;
+    font-size: 10px;
+  }
+
+  /* Scale Header */
+  .scale-header {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 8px;
+    font-size: 10px;
+    margin-bottom: 6px;
+    padding-bottom: 4px;
+  }
+  .scale-header .left {
+    text-align: left;
+  }
+  .scale-header .right {
+    text-align: right;
+  }
+  .scale-header .numbers {
+    display: none;
+  }
+
+  /* Group Labels */
+  .group-label {
+    font-size: 10px;
+    margin: 10px 0 4px;
+  }
+
+  /* Profile Row: Stacked Poles + Full-Width Oval Scale */
+  .profile-row {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 8px;
+    row-gap: 3px;
+    padding: 6px 4px 8px;
+    min-height: unset;
+    border-radius: 6px;
+  }
+  .profile-row .pole.left {
+    grid-column: 1;
+    grid-row: 1;
+    text-align: left;
+    font-size: 11px;
+    line-height: 1.25;
+    padding: 0;
+  }
+  .profile-row .pole.right {
+    grid-column: 2;
+    grid-row: 1;
+    text-align: right;
+    font-size: 11px;
+    line-height: 1.25;
+    padding: 0;
+  }
+  .profile-row .range-wrap {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    width: 100%;
+    height: 32px;
+  }
+  .profile-row .row-scale {
+    width: 100%;
+    height: 32px;
+  }
+
+  /* Scenario Bar */
+  .scenario-bar {
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 14px;
+  }
+  .preset-buttons {
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    flex-wrap: nowrap;
+    gap: 6px;
+    padding-bottom: 4px;
+  }
+  .preset-buttons::-webkit-scrollbar {
+    display: none;
+  }
+  .preset-btn {
+    flex-shrink: 0;
+    padding: 6px 10px;
+    font-size: 11px;
+    white-space: nowrap;
+  }
+  .preset-pros-cons {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .scenario-actions {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .scenario-actions button {
+    flex: 1 1 calc(50% - 6px);
+    padding: 7px 10px;
+    font-size: 11px;
+    text-align: center;
+  }
+  .coupling-controls {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 10px;
+  }
+
+  /* Detail Card (#readCard) */
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .detail-card {
+    padding: 14px 12px;
+    border-radius: 8px;
+  }
+  .detail-tabs {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 4px;
+  }
+  .detail-tabs::-webkit-scrollbar {
+    display: none;
+  }
+  .detail-tab {
+    flex-shrink: 0;
+    padding: 5px 8px;
+    font-size: 10px;
+  }
+  .practice-poles {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .study-stats {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  /* Cuts View */
+  .cuts-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .cut-card {
+    padding: 12px;
+  }
+  .cut-card img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Knowledge View */
+  .knav-bar {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    flex-wrap: nowrap;
+  }
+  .knav-bar::-webkit-scrollbar {
+    display: none;
+  }
+  .knav-tab {
+    flex-shrink: 0;
+    font-size: 11px;
+    padding: 6px 10px;
+  }
+  .kfilter-pills {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    flex-wrap: nowrap;
+  }
+  .kfilter-pills::-webkit-scrollbar {
+    display: none;
+  }
+  .kfilter-pill {
+    flex-shrink: 0;
+    font-size: 10px;
+    padding: 4px 8px;
+  }
+  .library-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+    margin-top: 10px;
+  }
+  .data-table {
+    min-width: 600px;
+  }
+
+  /* Footer */
+  footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .brand-text span {
+    display: none;
+  }
+  .page-heading h1 {
+    font-size: 20px;
+  }
+  .hud-main-metrics {
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+  .hud-stat strong {
+    font-size: 13px;
+  }
+  .profile-row .pole.left,
+  .profile-row .pole.right {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  #tuneToggle {
+    display: none !important;
+  }
+  .dashboard-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .profile-card,
+  .profile-body,
+  #profileRows,
+  .profile-row {
+    min-width: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
 }
