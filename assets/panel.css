@@ -837,6 +837,30 @@ svg:focus-visible,
   filter: drop-shadow(0 0 12px rgba(154, 110, 172, 1)) brightness(1.3);
 }
 
+/* Strict mode isolation between Profile mode and Scenario mode */
+body:not(.scenario-view) .scenario-oval {
+  display: none !important;
+}
+body:not(.scenario-view) .scenario-key {
+  display: none !important;
+}
+body:not(.scenario-view) .coupling-controls {
+  display: none !important;
+}
+body:not(.scenario-view) .scenario-direction {
+  display: none !important;
+}
+body:not(.scenario-view) .range-input {
+  display: none !important;
+}
+body.scenario-view .range-input {
+  pointer-events: auto;
+}
+body.scenario-view .oval {
+  stroke-dasharray: 2 3;
+  opacity: 0.45;
+}
+
 /* Native Slider Overlay: zero outline, zero border glitch */
 .range-input {
   position: absolute;
