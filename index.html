@@ -139,9 +139,9 @@
         <div class="benchmark-bar" role="toolbar" aria-label="Сравнение и ориентиры МГУ">
           <span class="filter-label">Сравнение МГУ:</span>
           <button type="button" class="benchmark-btn active" data-benchmark="none">Без наложения</button>
-          <button type="button" class="benchmark-btn" data-benchmark="mfk_ops">МФК vs Оперблок · Сл. 20</button>
-          <button type="button" class="benchmark-btn" data-benchmark="sber">Сбер и ЦА · Сл. 24</button>
-          <button type="button" class="benchmark-btn" data-benchmark="values23">Декларируемые ценности · Сл. 23</button>
+          <button type="button" class="benchmark-btn" data-benchmark="mfk_ops">МФК vs Оперблок</button>
+          <button type="button" class="benchmark-btn" data-benchmark="sber">Сбер и ЦА</button>
+          <button type="button" class="benchmark-btn" data-benchmark="values23">Декларируемые ценности</button>
         </div>
         <div id="benchmarkCallout" class="benchmark-callout" hidden>
           <div class="benchmark-callout-header">
@@ -196,7 +196,7 @@
           </div>
         </div>
         <details class="reading-guide"><summary>Как читать профиль</summary><p>Положение овала показывает, к какому полюсу ближе характеристика. Его длина сохраняет разброс, изображённый в исследовании: длиннее означает более широкий диапазон. Это не доля сотрудников и не установленный доверительный интервал.</p><p>Семь оливковых характеристик отнесены авторами презентации к культурному ядру. Остальные тринадцать дополняют профиль. Полюса не являются оценками «хорошо» и «плохо».</p></details>
-        <div class="profile-body" id="profileBody"><div class="scale-header"><span class="left">Один полюс</span><div class="numbers"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span></div><span class="right">Другой полюс</span></div>
+        <div class="profile-body" id="profileBody"><div class="scale-header"><span class="left">Один полюс</span><div class="numbers"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span></div><span class="right">Другой полюс</span><span class="header-scores" id="scaleHeaderScoreCol">Показатели</span></div>
           <div id="profileRows"><div class="group-label core"><span>Культурное ядро</span><span>7</span></div>
 <div class="profile-row is-core" data-index="0" data-lo="0.6110347617167893" data-hi="0.8275934458480987">
       <span class="pole left ">Закрытость для новых людей</span>
@@ -528,7 +528,7 @@
             <p>Интеллектуальный диалог двух ведущих по результатам исследования «Культурный код Мрии» (1 047 анкет сотрудников, август 2026). Анализ 20 характеристик, различий МФК и Оперблока, факторов доверия и 3 стратегических развилок.</p>
           </div>
           <div class="podcast-banner-badges">
-            <span class="podcast-badge">NotebookLM Audio Overview</span>
+            <span class="podcast-badge">Аудио-разбор исследования</span>
             <span class="podcast-badge-sub">4 смысловые главы · Синхронизация с профилем</span>
           </div>
         </div>
@@ -580,16 +580,8 @@
       <div class="podcast-transcript-section">
         <div class="transcript-heading">
           <h4>Стенограмма и ключевые тезисы главы</h4>
-          <span class="muted">Голоса ведущих: Анна (методолог) и Михаил (организационный аналитик)</span>
         </div>
         <div class="podcast-dialogue-transcript" id="podcastDialogueTranscript"></div>
-      </div>
-
-      <div class="podcast-generator-note">
-        <div class="note-head"><strong>Как сгенерировать собственный аудиоподкаст в Google NotebookLM:</strong></div>
-        <p>1. Откройте сервис Google NotebookLM и загрузите PDF-файл отчёта (<code>sources/mriya-research.pdf</code>).<br>
-        2. В блоке Audio Overview вставьте специальный промпт из подготовленного пакета материалов передачи.<br>
-        3. Полученный аудиофайл сохраните в папку проекта <code>assets/podcast/mriya-culture-overview.mp3</code> — плеер подхватит его автоматически.</p>
       </div>
     </div>
   </div>

@@ -622,8 +622,8 @@ a:focus-visible, summary:focus-visible, button:focus-visible {
 
 .scale-header {
   display: grid;
-  grid-template-columns: minmax(160px, 1fr) minmax(220px, 1.4fr) minmax(160px, 1fr);
-  column-gap: 16px;
+  grid-template-columns: minmax(130px, 1fr) minmax(200px, 1.4fr) minmax(130px, 1fr) 100px;
+  column-gap: 14px;
   align-items: center;
   font-size: 11px;
   color: var(--text-muted);
@@ -633,6 +633,14 @@ a:focus-visible, summary:focus-visible, button:focus-visible {
 }
 .scale-header .left { text-align: right; }
 .scale-header .right { text-align: left; }
+.scale-header .header-scores {
+  text-align: right;
+  font-weight: 600;
+  color: var(--text-muted);
+  font-size: 10.5px;
+  letter-spacing: 0.02em;
+  padding-right: 4px;
+}
 .numbers {
   display: flex;
   justify-content: space-between;
@@ -666,8 +674,8 @@ a:focus-visible, summary:focus-visible, button:focus-visible {
 /* Row Layout */
 .profile-row {
   display: grid;
-  grid-template-columns: minmax(160px, 1fr) minmax(220px, 1.4fr) minmax(160px, 1fr);
-  column-gap: 16px;
+  grid-template-columns: minmax(130px, 1fr) minmax(200px, 1.4fr) minmax(130px, 1fr) 100px;
+  column-gap: 14px;
   align-items: center;
   min-height: 40px;
   padding: 4px 10px;
@@ -857,19 +865,20 @@ svg:focus-visible,
 
 /* Numeric Delta Score Badge */
 .row-score-badge {
-  position: absolute;
-  right: 6px;
-  top: 50%;
-  transform: translateY(-50%);
+  position: static;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  flex-wrap: wrap;
   font-size: 10px;
   font-weight: 600;
   color: var(--text-muted);
-  pointer-events: none;
-  z-index: 6;
+  pointer-events: auto;
+  z-index: 1;
   font-variant-numeric: tabular-nums;
-  display: flex;
-  align-items: center;
-  gap: 4px;
+  text-align: right;
+  padding-right: 2px;
 }
 .score-target { color: var(--text-main); }
 .score-delta {
@@ -1657,7 +1666,8 @@ footer {
   .scale-header .right {
     text-align: right;
   }
-  .scale-header .numbers {
+  .scale-header .numbers,
+  .scale-header .header-scores {
     display: none;
   }
 
@@ -1701,6 +1711,13 @@ footer {
   .profile-row .row-scale {
     width: 100%;
     height: 32px;
+  }
+  .profile-row .row-score-badge {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1px;
   }
 
   /* Scenario Bar */
@@ -2052,14 +2069,16 @@ footer {
 }
 
 .bench-pill {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   font-size: 9px;
   font-weight: 600;
-  padding: 1px 5px;
+  padding: 1px 4px;
   border-radius: 3px;
-  margin-left: 4px;
-  vertical-align: middle;
+  margin: 0;
+  line-height: 1.3;
   letter-spacing: 0.02em;
+  white-space: nowrap;
 }
 .bench-pill.mfk {
   background: rgba(229, 181, 103, 0.16);
@@ -2087,15 +2106,18 @@ footer {
   border: 1px solid rgba(127, 179, 213, 0.45);
 }
 .bench-tag-diff {
-  display: inline-block;
-  font-size: 9px;
+  display: inline-flex;
+  align-items: center;
+  font-size: 8.5px;
   font-weight: 700;
-  padding: 1px 5px;
+  padding: 1px 4px;
   border-radius: 3px;
-  margin-left: 4px;
+  margin: 0;
+  line-height: 1.3;
   background: rgba(217, 136, 128, 0.22);
   color: #F1948A;
   border: 1px solid rgba(217, 136, 128, 0.55);
+  white-space: nowrap;
 }
 .bench-swatch.swatch-mriya { background: #B8B297; }
 .bench-swatch.swatch-mfk { background: #E5B567; }
