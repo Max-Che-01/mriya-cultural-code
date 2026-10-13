@@ -2051,6 +2051,59 @@ footer {
   border: 1px solid rgba(217, 136, 128, 0.5);
 }
 
+.bench-pill {
+  display: inline-block;
+  font-size: 9px;
+  font-weight: 600;
+  padding: 1px 5px;
+  border-radius: 3px;
+  margin-left: 4px;
+  vertical-align: middle;
+  letter-spacing: 0.02em;
+}
+.bench-pill.mfk {
+  background: rgba(229, 181, 103, 0.16);
+  color: #E5B567;
+  border: 1px solid rgba(229, 181, 103, 0.45);
+}
+.bench-pill.ops {
+  background: rgba(127, 179, 213, 0.16);
+  color: #7FB3D5;
+  border: 1px solid rgba(127, 179, 213, 0.45);
+}
+.bench-pill.mriya {
+  background: rgba(184, 178, 151, 0.18);
+  color: #D4CEB0;
+  border: 1px solid rgba(184, 178, 151, 0.4);
+}
+.bench-pill.sber {
+  background: rgba(229, 181, 103, 0.16);
+  color: #E5B567;
+  border: 1px solid rgba(229, 181, 103, 0.45);
+}
+.bench-pill.sber-ca {
+  background: rgba(127, 179, 213, 0.16);
+  color: #7FB3D5;
+  border: 1px solid rgba(127, 179, 213, 0.45);
+}
+.bench-tag-diff {
+  display: inline-block;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 1px 5px;
+  border-radius: 3px;
+  margin-left: 4px;
+  background: rgba(217, 136, 128, 0.22);
+  color: #F1948A;
+  border: 1px solid rgba(217, 136, 128, 0.55);
+}
+.bench-swatch.swatch-mriya { background: #B8B297; }
+.bench-swatch.swatch-mfk { background: #E5B567; }
+.bench-swatch.swatch-ops { background: #7FB3D5; }
+.bench-swatch.swatch-sber { background: #E5B567; }
+.bench-swatch.swatch-ca { background: #7FB3D5; }
+
+
 /* ==========================================================================
    Preset Strategy 2035 & Start/Stop/Continue Matrix (Slides 47–51)
    ========================================================================== */
